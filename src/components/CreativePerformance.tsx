@@ -168,7 +168,9 @@ const CreativePerformance = ({ data }: CreativePerformanceProps) => {
           veiculo: item.veiculo,
           tipoDeCompra: item.tipoDeCompra,
           tipoMidia: item.tipoMidia,
-          imageUrl: item.imageUrl || getLocalCreativeImageUrl(item.name) || getFallbackImageUrl(item.name) || '',
+          // Criativo local (src/images/criativos) tem prioridade sobre a URL da
+          // plataforma, que é assinada e expira. Fallback: imagem da planilha.
+          imageUrl: getLocalCreativeImageUrl(item.name) || item.imageUrl || getFallbackImageUrl(item.name) || '',
           videoUrl: getLocalCreativeVideoUrl(item.name) || '',
           impressoes: item.impressoes,
           cliques: item.cliques,

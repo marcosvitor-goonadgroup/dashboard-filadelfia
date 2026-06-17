@@ -85,8 +85,9 @@ const CreativeDetailModal = ({ creativeName, data, benchmark, onClose }: Creativ
 
     const firstItem = creativeData[0];
 
-    // Busca a primeira URL de imagem não vazia, com fallback local e estático
-    const imageUrl = creativeData.find(item => item.image)?.image || getLocalCreativeImageUrl(creativeName) || getFallbackImageUrl(creativeName) || '';
+    // Criativo local (src/images/criativos) tem prioridade; depois a URL da
+    // planilha (assinada/expira) e, por fim, o fallback estático.
+    const imageUrl = getLocalCreativeImageUrl(creativeName) || creativeData.find(item => item.image)?.image || getFallbackImageUrl(creativeName) || '';
 
     return {
       ...aggregated,
