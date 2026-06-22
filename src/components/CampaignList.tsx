@@ -3,10 +3,12 @@ import { useMemo, useState } from 'react';
 import { subDays } from 'date-fns';
 import { toSlug } from '../utils/slug';
 import logoPrefeituraContagem from '../images/logo_prefeitura_contagem.png';
+import logoIbmr from '../images/logo_ibmr.png';
 
-// Mapeamento de logos por cliente
+// Mapeamento de logos por cliente (exibido apenas no card de clientes da agência)
 const clientLogos: Record<string, string> = {
-  'PREFEITURA DE CONTAGEM': logoPrefeituraContagem
+  'PREFEITURA DE CONTAGEM': logoPrefeituraContagem,
+  'IBMR': logoIbmr
 };
 
 interface CampaignListProps {
