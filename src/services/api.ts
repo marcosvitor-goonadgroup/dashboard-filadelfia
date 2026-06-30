@@ -12,9 +12,10 @@ const CONSOLIDADO_API_URLS = [
   `${API_BASE}/google/sheets/12yXqtGSvmWUPcTyQnb35bBv58Vge6pSKJXwiuaCanik/data?range=Consolidado`
 ];
 
-// Planilha Consolidada do IBMR (layout próprio — 28 colunas)
-const IBMR_API_URLS = [
-  `${API_BASE}/google/sheets/1E7f7LSolcxPtBh_nf-RuED1WgCc1miZmJXvL1p9TWXY/data?range=Consolidado`
+// Planilhas Consolidadas no layout de 28 colunas (IBMR, SENAC e similares)
+const CONSOLIDADO_28COL_API_URLS = [
+  `${API_BASE}/google/sheets/1E7f7LSolcxPtBh_nf-RuED1WgCc1miZmJXvL1p9TWXY/data?range=Consolidado`, // IBMR
+  `${API_BASE}/google/sheets/16TGjNpG3VPJ5mnbgDaVjNxtOrV9DR7Fk_Xc7lbt1c3k/data?range=Consolidado`  // SENAC
 ];
 
 const SEARCH_API_URLS = [
@@ -124,14 +125,14 @@ const parseConsolidadoRows = (rows: string[][]): ProcessedCampaignData[] => {
   return data;
 };
 
-// Formato "Consolidado IBMR" — 28 colunas:
+// Formato "Consolidado" de 28 colunas (IBMR, SENAC e similares):
 // [0] Nome Conta, [1] ID Conta, [2] Data, [3] Device, [4] Campaign Name,
 // [5] Campaign ID, [6] Ad Group Name, [7] Ad group ID, [8] Ad Name, [9] Ad ID,
 // [10] Ad Final URL, [11] Cost (Spend), [12] Impressions, [13] Clicks,
 // [14] Video View, [15] Views 25%, [16] Views 50%, [17] Views 75%,
 // [18] Views 100%, [19] VA, [20] Agência, [21] Veículo, [22] Número PI,
 // [23] Tipo de Compra, [24] Investimento, [25] Formato, [26] Campanha, [27] Cliente
-const parseConsolidadoIbmrRows = (rows: string[][]): ProcessedCampaignData[] => {
+const parseConsolidado28Rows = (rows: string[][]): ProcessedCampaignData[] => {
   const data: ProcessedCampaignData[] = [];
   rows.forEach(row => {
     if (row.length < 25) return;
@@ -172,9 +173,9 @@ const parseConsolidadoIbmrRows = (rows: string[][]): ProcessedCampaignData[] => 
 
 export const fetchCampaignData = async (): Promise<ProcessedCampaignData[]> => {
   try {
-    const [consolidadoResponses, ibmrResponses] = await Promise.all([
+    const [consolidadoResponses, consolidado28Responses] = await Promise.all([
       Promise.all(CONSOLIDADO_API_URLS.map(url => axios.get<ApiResponse>(url))),
-      Promise.all(IBMR_API_URLS.map(url => axios.get<ApiResponse>(url)))
+      Promise.all(CONSOLIDADO_28COL_API_URLS.map(url => axios.get<ApiResponse>(url)))
     ]);
 
     const allData: ProcessedCampaignData[] = [];
@@ -186,10 +187,10 @@ export const fetchCampaignData = async (): Promise<ProcessedCampaignData[]> => {
       }
     });
 
-    ibmrResponses.forEach(response => {
+    consolidado28Responses.forEach(response => {
       if (response.data.success && response.data.data.values.length > 1) {
         const rows = response.data.data.values.slice(1);
-        allData.push(...parseConsolidadoIbmrRows(rows));
+        allData.push(...parseConsolidado28Rows(rows));
       }
     });
 
