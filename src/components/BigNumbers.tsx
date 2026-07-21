@@ -17,14 +17,10 @@ interface BigNumbersProps {
   selectedPI?: string | null;
 }
 
+// Exibe o número completo com separador de milhar (pt-BR), sem abreviar
+// (mi/mil) para não arredondar Impressões, Views, Engajamento e Cliques.
 const formatNumber = (num: number): string => {
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(2)} mi`;
-  }
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)} mil`;
-  }
-  return num.toFixed(0);
+  return new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 }).format(num);
 };
 
 const formatCurrency = (num: number): string => {
