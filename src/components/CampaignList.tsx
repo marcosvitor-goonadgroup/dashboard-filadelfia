@@ -5,12 +5,14 @@ import { toSlug } from '../utils/slug';
 import logoPrefeituraContagem from '../images/logo_prefeitura_contagem.png';
 import logoIbmr from '../images/logo_ibmr.png';
 import logoSenac from '../images/logo_senac.webp';
+import logoFiemg from '../images/fiemg.webp';
 
 // Mapeamento de logos por cliente (exibido apenas no card de clientes da agência)
 const clientLogos: Record<string, string> = {
   'PREFEITURA DE CONTAGEM': logoPrefeituraContagem,
   'IBMR': logoIbmr,
-  'SENAC': logoSenac
+  'SENAC': logoSenac,
+  'FIEMG': logoFiemg
 };
 
 interface CampaignListProps {

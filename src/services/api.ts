@@ -12,10 +12,11 @@ const CONSOLIDADO_API_URLS = [
   `${API_BASE}/google/sheets/12yXqtGSvmWUPcTyQnb35bBv58Vge6pSKJXwiuaCanik/data?range=Consolidado`
 ];
 
-// Planilhas Consolidadas no layout de 28 colunas (IBMR, SENAC e similares)
+// Planilhas Consolidadas no layout de 28 colunas (IBMR, SENAC, FIEMG e similares)
 const CONSOLIDADO_28COL_API_URLS = [
   `${API_BASE}/google/sheets/1E7f7LSolcxPtBh_nf-RuED1WgCc1miZmJXvL1p9TWXY/data?range=Consolidado`, // IBMR
-  `${API_BASE}/google/sheets/16TGjNpG3VPJ5mnbgDaVjNxtOrV9DR7Fk_Xc7lbt1c3k/data?range=Consolidado`  // SENAC
+  `${API_BASE}/google/sheets/16TGjNpG3VPJ5mnbgDaVjNxtOrV9DR7Fk_Xc7lbt1c3k/data?range=Consolidado`, // SENAC
+  `${API_BASE}/google/sheets/1K1y_SkbmAg-qWfoJt7KTQeTPVxlMhaQHFrVrrUW2IyE/data?range=Consolidado`  // FIEMG
 ];
 
 const SEARCH_API_URLS = [
@@ -125,7 +126,7 @@ const parseConsolidadoRows = (rows: string[][]): ProcessedCampaignData[] => {
   return data;
 };
 
-// Formato "Consolidado" de 28 colunas (IBMR, SENAC e similares):
+// Formato "Consolidado" de 28 colunas (IBMR, SENAC, FIEMG e similares):
 // [0] Nome Conta, [1] ID Conta, [2] Data, [3] Device, [4] Campaign Name,
 // [5] Campaign ID, [6] Ad Group Name, [7] Ad group ID, [8] Ad Name, [9] Ad ID,
 // [10] Ad Final URL, [11] Cost (Spend), [12] Impressions, [13] Clicks,
